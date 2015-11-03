@@ -30,7 +30,7 @@ def main():
 		return  json.dumps(result,ensure_ascii=False,indent=4)
 
 	usr="genetao06@hotmail.com"
-	psd="tj.1994.12.06"
+	psd="**********"
 	server = smtplib.SMTP("smtp.live.com",587)
 	server.ehlo()
 	server.starttls()
