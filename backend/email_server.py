@@ -14,7 +14,7 @@ from email.mime.multipart import MIMEMultipart
 app = Flask(__name__)
 
 
-@app.route("/main",methods=['GET','POST'])
+@app.route("/mail",methods=['GET','POST'])
 def main():
 	usr = request.args.get("usr")
 	psd = request.args.get("psd")
