@@ -20,7 +20,7 @@ def main():
 	psd = request.args.get("psd")
 	sbj = request.args.get("sbj")
 	txt = request.args.get("txt")
-	rcv = request.args.get("rcv")
+	rcv = request.args.getlist("rcv")
 	if usr is None or psd is None or sbj is None or txt is None or rcv is None:
 		result = {
 			"success" : False,
@@ -28,9 +28,6 @@ def main():
 			"serverTime" : str(datetime.datetime.now)
 		}
 		return  json.dumps(result,ensure_ascii=False,indent=4)
-
-	usr="genetao06@hotmail.com"
-	psd="**********"
 	server = smtplib.SMTP("smtp.live.com",587)
 	server.ehlo()
 	server.starttls()
@@ -39,7 +36,7 @@ def main():
 	msg.attach(MIMEText(txt,'plain','utf-8'))
 	msg['subject'] = sbj
 	msg['From'] = usr
-	msg['To'] = rcv
+	msg['To'] = ",".join(rcv)
 	server.sendmail(usr, rcv, msg.as_string())
 	server.quit()
 
