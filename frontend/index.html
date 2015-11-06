@@ -4,18 +4,35 @@
 	<title>Email</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
 </head>
 <body ng-controller="MainController">
-	<h1>Email Group Sender</h1>
-	<table>
-		<tr>
-			<td>subject</td> <td><input id="subject" type="text" ng-model="subject"></input></td>
-		</tr>
-		<tr>
-			<td colspan="2"><button type="button" ng-click="send()">Send</button></td>
-		</tr>
-	</table>
-	Subject: {{subject}}
+<div class="content">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="well">
+				<h1>Email Group Sender</h1>
+				    <div class="form-group">
+						<label for="email">Email: </label>
+						<input class="form-control"  type="text" ng-model="email" id="email">
+				    </div>
+					<div class="form-group">
+						<label for="pwd">Password: </label>
+						<input class="form-control"   type="password" ng-model="password" id="pwd">
+					</div>
+					<div class="form-group">
+						<label for="subject">Subject: </label>
+						<input class="form-control"   type="text" ng-model="subject" id="subject">
+					</div>
+			</div>
+			<div class="well">
+				Subject: {{subject}}
+			</div>
+		</div>
+	</div>
+</div>
 
 
 </body>
