@@ -10,10 +10,13 @@
 </head>
 <body ng-controller="MainController">
 <div class="content">
+	<div class="jumbotron">
+		<h1 align="center">Email Group Sender</h1>
+	</div>
+
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="well">
-				<h1>Email Group Sender</h1>
 				    <div class="form-group">
 						<label for="email">Email: </label>
 						<input class="form-control"  type="text" ng-model="email" id="email">
@@ -26,9 +29,90 @@
 						<label for="subject">Subject: </label>
 						<input class="form-control"   type="text" ng-model="subject" id="subject">
 					</div>
+					Subject: {{subject}}
 			</div>
 			<div class="well">
-				Subject: {{subject}}
+				<form ng-model="form" method="post" id="form">
+				<p>Message:<br>
+				<div id="wysiwyg_cp" style="padding:8px; width:700px;">
+				  <button type="button" class="btn btn-primary" ng-click="bold()">B</button>
+				  <button type="button" class="btn btn-primary" ng-click="underline()">U</button>
+				  <button type="button" class="btn btn-primary" ng-click="italic()">I</button>
+				  <div class="dropdown" style="display:inline;">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    Size
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+				      <li><a ng-click="size(1)">1</a></li>
+				      <li><a ng-click="size(2)">2</a></li>
+				      <li><a ng-click="size(3)">3</a></li>
+				      <li><a ng-click="size(4)">4</a></li>
+				      <li><a ng-click="size(5)">5</a></li>
+				      <li><a ng-click="size(6)">6</a></li>
+				      <li><a ng-click="size(7)">7</a></li>
+				    </ul>
+				  </div>
+				<div class="dropdown" style="display:inline;">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    Color
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+				      <li><a  style="background-color:#ffa6c9" ng-click="color('#ffa6c9')">pink</a></li>
+				      <li><a style="background-color:red" ng-click="color('red')">red</a></li>
+				      <li><a style="background-color:#ffa500" ng-click="color('#ffa500')">orange</a></li>
+				      <li><a style="background-color:yellow" ng-click="color('yellow')">yellow</a></li>
+				      <li><a style="background-color:#ffff99" ng-click="color('#ffff99')">canary</a></li>
+				      <li><a style="background-color:blue" ng-click="color('blue')">blue</a></li>
+				      <li><a style="background-color:cyan" ng-click="color('cyan')">cyan</a></li>
+				      <li><a style="background-color:green" ng-click="color('green')">green</a></li>
+				      <li><a style="background-color:#7fffd4" ng-click="color('#7fffd4')">Aquamarine</a></li>
+				    </ul>
+				  </div>		
+				  <div class="dropdown" style="display:inline;">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    Backgroud Color
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+				      <li><a  style="background-color:#ffa6c9" ng-click="backgroundcolor('#ffa6c9')">pink</a></li>
+				      <li><a style="background-color:red" ng-click="backgroundcolor('red')">red</a></li>
+				      <li><a style="background-color:#ffa500" ng-click="backgroundcolor('#ffa500')">orange</a></li>
+				      <li><a style="background-color:yellow" ng-click="backgroundcolor('yellow')">yellow</a></li>
+				      <li><a style="background-color:#ffff99" ng-click="backgroundcolor('#ffff99')">canary</a></li>
+				      <li><a style="background-color:blue" ng-click="cbackgroundcolor('blue')">blue</a></li>
+				      <li><a style="background-color:cyan" ng-click="backgroundcolor('cyan')">cyan</a></li>
+				      <li><a style="background-color:green" ng-click="backgroundcolor('green')">green</a></li>
+				      <li><a style="background-color:#7fffd4" ng-click="backgroundcolor('#7fffd4')">Aquamarine</a></li>
+				    </ul>
+				  </div>		
+				  <div class="dropdown" style="display:inline;">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    Align
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+				      <li><a ng-click="align_right()">Right</a></li>
+				      <li><a ng-click="align_center()">Center</a></li>
+				      <li><a ng-click="align_left()">Left</a></li>
+				    </ul>
+				  </div>
+				  <p style="height=10dp"> </p> 
+				  <button type="button" class="btn btn-primary" ng-click="link()">LinkURL</button>
+				  <button type="button" class="btn btn-primary" ng-click="unlink()" >Unlink</button>
+				  <button type="button" class="btn btn-primary" ng-click="ordered_list()" >OrderList</button>
+				  <button type="button" class="btn btn-primary" ng-click="unordered_list()">List</button>
+				  <button type="button" class="btn btn-primary" ng-click="image()" >Image</button>
+				  <button type="button" class="btn btn-primary" ng-click="image()" >Image</button>
+				  <button type="button" class="btn btn-primary" ng-click="horizontal()" >HorizonLine</button>
+				</div>
+				<!-- Hide(but keep)your normal textarea and place in the iFrame replacement for it -->
+				<textarea style="display:none;" name="Message" id="Message" cols="100" rows="14"></textarea>
+				<iframe name="richTextField" id="richTextField" style="border:#000000 1px solid; width:600px; height:300px;"></iframe>
+				<!-- End replacing your normal textarea -->
+				</p>
+				<button class="btn btn-primary" ng-click="send_email()">Send</button>
+				</form>
+			</div>
+			<div id="preview" class="well">
+				
 			</div>
 		</div>
 	</div>
