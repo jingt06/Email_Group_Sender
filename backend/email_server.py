@@ -6,7 +6,7 @@ import json
 import sys
 import datetime
 from flask import request
-
+import psycopg2
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -39,9 +39,52 @@ def main():
 	msg['To'] = ",".join(rcv)
 	server.sendmail(usr, rcv, msg.as_string())
 	server.quit()
-
 	return("ok")
+
+@app.route("/all_group",methods=['GET','POST'])
+def all_group():
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+	groups = cursor.fetchall()
+	groups_array = json.dumps(groups)
+	return(groups_array)
+
+@app.route("/add_group",methods=['GET','POST'])
+def add_group():
+	group_name = request.args.get("n")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+	groups = cursor.fetchall()
+	if( group_name not in groups ):
+		cursor.execute("CREATE TABLE " + group_name + " (email varchar(50))")
+		return("ok")
+	return("error")
+
+
+@app.route("/test",methods=['GET','POST'])
+def test():
+	conn_string = "host='localhost' dbname='email_group_sender' user='git' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	return("Connected")
+
+
+
 
 
 if __name__ == '__main__':
 	app.run(port=8080,debug=True)
+
+
+
+
+
+
+
+
+
+
+
