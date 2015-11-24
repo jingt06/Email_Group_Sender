@@ -100,7 +100,6 @@
 				  <button type="button" class="btn btn-primary" ng-click="ordered_list()" >OrderList</button>
 				  <button type="button" class="btn btn-primary" ng-click="unordered_list()">List</button>
 				  <button type="button" class="btn btn-primary" ng-click="image()" >Image</button>
-				  <button type="button" class="btn btn-primary" ng-click="image()" >Image</button>
 				  <button type="button" class="btn btn-primary" ng-click="horizontal()" >HorizonLine</button>
 				</div>
 				<!-- Hide(but keep)your normal textarea and place in the iFrame replacement for it -->
@@ -114,6 +113,16 @@
 			<div id="preview" class="well">
 				
 			</div>
+		</div>
+		<div class="col-sm-4">
+		<form name="Form">
+		    <label for="eGroups"> Email Groups: </label>
+		    <select name="eGroups" id="Email_Groups" ng-model="groups.select">
+		      <option ng-repeat="option in groups.current_groups" value="{{option.name}}">{{option.name}}</option>
+		    </select>
+ 		 </form>
+		    {{groups.select}}
+		    {{http_get}}
 		</div>
 	</div>
 </div>

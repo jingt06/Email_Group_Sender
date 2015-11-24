@@ -1,7 +1,7 @@
 #/usr/bin/env python3
 
 from flask import Flask, jsonify
-
+from flask.ext.cors import CORS
 import json
 import sys
 import datetime
@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/mail",methods=['GET','POST'])
 def main():
@@ -48,7 +48,10 @@ def all_group():
 	cursor = conn.cursor()
 	cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
 	groups = cursor.fetchall()
-	groups_array = json.dumps(groups)
+	final=[]
+	for group in groups:
+		final.append(group[0])
+	groups_array = json.dumps(final)
 	return(groups_array)
 
 @app.route("/add_group",methods=['GET','POST'])
@@ -57,11 +60,16 @@ def add_group():
 	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
 	conn = psycopg2.connect(conn_string)
 	cursor = conn.cursor()
-	cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+	cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';")
 	groups = cursor.fetchall()
-	if( group_name not in groups ):
-		cursor.execute("CREATE TABLE " + group_name + " (email varchar(50))")
+	if( group_name not in list(map(lambda x:x[0],groups)) ):
+		execution = "CREATE TABLE " + group_name + " (email varchar(50))"
+		print(execution)
+		cursor.execute(execution)
+		conn.commit()
 		return("ok")
+	else:
+		return("group already exists")
 	return("error")
 
 

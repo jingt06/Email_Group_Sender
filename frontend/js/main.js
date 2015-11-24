@@ -3,6 +3,28 @@
 	angular.module("email_sender",[])
 		.controller("MainController",["$scope","$http",
 			function($scope,$http){
+				
+				$http.get('http://127.0.0.1:8080/all_group')
+					.success(function(response) {
+						var groups = [];
+						for (i = 0; i < response.length;i++){
+							var item = {
+							    "name": response[i]
+							 };
+							groups.push(item);
+						}
+						$scope.groups = {
+						    select: null,
+						    current_groups : groups,
+						 };
+     				});
+
+
+
+				
+
+				
+
 				var init = function(){
 					iFrameOn();
 				}
@@ -79,9 +101,6 @@
 				function iFrameOn(){
 					richTextField.document.designMode = 'On';
 				}
-
-
-
 				init();
 			}
 			])
