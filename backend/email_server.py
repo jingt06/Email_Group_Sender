@@ -72,6 +72,21 @@ def add_group():
 		return("group already exists")
 	return("error")
 
+@app.route("/get_addresses",methods=['GET','POST'])
+def get_addresses():
+	group = request.args.get("group")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("SELECT email FROM " + group)
+	groups = cursor.fetchall()
+	final=[]
+	for group in groups:
+		final.append(group[0])
+	addr = json.dumps(final)
+	return(addr)
+
+
 
 @app.route("/test",methods=['GET','POST'])
 def test():

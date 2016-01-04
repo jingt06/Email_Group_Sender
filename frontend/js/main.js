@@ -3,7 +3,6 @@
 	angular.module("email_sender",[])
 		.controller("MainController",["$scope","$http",
 			function($scope,$http){
-				
 				$http.get('http://127.0.0.1:8080/all_group')
 					.success(function(response) {
 						var groups = [];
@@ -18,11 +17,6 @@
 						    current_groups : groups,
 						 };
      				});
-
-
-
-				
-
 				
 
 				var init = function(){
@@ -102,6 +96,13 @@
 					richTextField.document.designMode = 'On';
 				}
 				init();
+
+				$scope.get_addresses = function(){
+				$http.get('http://127.0.0.1:8080/get_addresses?group='+$scope.groups.select)
+					.success(function(response) {
+						$scope.addresses = response
+     				});
+				}
 			}
 			])
 }());

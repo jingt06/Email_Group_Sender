@@ -118,11 +118,11 @@
 			<div class="well">
 				<form name="Form">
 				    <label for="eGroups"> Email Groups: </label>
-				    <select name="eGroups" id="Email_Groups" ng-model="groups.select">
+				    <select name="eGroups" id="Email_Groups" ng-model="groups.select" ng-change="get_addresses()">
 				      <option ng-repeat="option in groups.current_groups" value="{{option.name}}">{{option.name}}</option>
 				    </select>
 		 		 </form>
-				 {{groups.select}}
+				 {{addresses}}
 		    </div>	
 		</div>
 	</div>
