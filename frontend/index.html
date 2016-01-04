@@ -123,6 +123,13 @@
 				    </select>
 		 		 </form>
 				 {{addresses}}
+				 <div ng-show="selected" class="form-group">
+					<label for="address">Email Address: </label>
+					<input class="form-control"  type="text" ng-model="address_added" id="address">
+					<button ng-click="add_address()">
+						 Add Address
+					</button>
+			     </div>
 		    </div>	
 		</div>
 	</div>

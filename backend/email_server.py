@@ -64,7 +64,6 @@ def add_group():
 	groups = cursor.fetchall()
 	if( group_name not in list(map(lambda x:x[0],groups)) ):
 		execution = "CREATE TABLE " + group_name + " (email varchar(50))"
-		print(execution)
 		cursor.execute(execution)
 		conn.commit()
 		return("ok")
@@ -85,6 +84,25 @@ def get_addresses():
 		final.append(group[0])
 	addr = json.dumps(final)
 	return(addr)
+
+
+@app.route("/add_address",methods=['GET','POST'])
+def add_addresses():
+	group = request.args.get("group")
+	address = request.args.get("address")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("SELECT email FROM " + group)
+	addresses = cursor.fetchall()
+	if( address not in list(map(lambda x:x[0],addresses)) ):
+		execution = "INSERT INTO " + group + "(email) VALUES ('" + address + "')"
+		cursor.execute(execution)
+		conn.commit()
+		return("ok")
+	else:
+		return("address already exists")
+	return("error")
 
 
 

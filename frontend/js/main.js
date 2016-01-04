@@ -101,8 +101,21 @@
 				$http.get('http://127.0.0.1:8080/get_addresses?group='+$scope.groups.select)
 					.success(function(response) {
 						$scope.addresses = response
+						$scope.selected = true
      				});
 				}
+
+				$scope.add_address = function(){
+				$http.get('http://127.0.0.1:8080/add_address?group='+$scope.groups.select+'&address='+$scope.address_added)
+					.success(function(response) {
+						$http.get('http://127.0.0.1:8080/get_addresses?group='+$scope.groups.select)
+							.success(function(response) {
+								$scope.addresses = response
+								$scope.selected = true
+     						});
+     					$scope.address_added = ""
+     				});
+   				}
 			}
 			])
 }());
