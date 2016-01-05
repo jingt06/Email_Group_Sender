@@ -116,6 +116,18 @@
      					$scope.address_added = ""
      				});
    				}
+   				$scope.delete = function(address){
+   					console.log(address)
+				$http.get('http://127.0.0.1:8080/delete_address?group='+$scope.groups.select+'&address='+address)
+					.success(function(response) {
+						$http.get('http://127.0.0.1:8080/get_addresses?group='+$scope.groups.select)
+							.success(function(response) {
+								$scope.addresses = response
+								$scope.selected = true
+     						});
+     					$scope.address_added = ""
+     				});
+   				}
 			}
 			])
 }());

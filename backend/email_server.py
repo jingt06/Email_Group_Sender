@@ -87,7 +87,7 @@ def get_addresses():
 
 
 @app.route("/add_address",methods=['GET','POST'])
-def add_addresses():
+def add_address():
 	group = request.args.get("group")
 	address = request.args.get("address")
 	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
@@ -104,6 +104,20 @@ def add_addresses():
 		return("address already exists")
 	return("error")
 
+
+@app.route("/delete_address",methods=['GET','POST'])
+def delete_address():
+	group = request.args.get("group")
+	address = request.args.get("address")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("SELECT email FROM " + group)
+	addresses = cursor.fetchall()
+	execution = "DELETE FROM " + group + " WHERE email ='" + address + "'"
+	cursor.execute(execution)
+	conn.commit()
+	return("error")
 
 
 @app.route("/test",methods=['GET','POST'])
