@@ -112,13 +112,20 @@ def delete_address():
 	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
 	conn = psycopg2.connect(conn_string)
 	cursor = conn.cursor()
-	cursor.execute("SELECT email FROM " + group)
-	addresses = cursor.fetchall()
 	execution = "DELETE FROM " + group + " WHERE email ='" + address + "'"
 	cursor.execute(execution)
 	conn.commit()
-	return("error")
+	return("")
 
+@app.route("/delete_group",methods=['GET','POST'])
+def delete_group():
+	group = request.args.get("group")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("DROP TABLE IF EXISTS " + group)
+	conn.commit()
+	return("")
 
 @app.route("/test",methods=['GET','POST'])
 def test():

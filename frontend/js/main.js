@@ -117,7 +117,6 @@
      				});
    				}
    				$scope.delete = function(address){
-   					console.log(address)
 				$http.get('http://127.0.0.1:8080/delete_address?group='+$scope.groups.select+'&address='+address)
 					.success(function(response) {
 						$http.get('http://127.0.0.1:8080/get_addresses?group='+$scope.groups.select)
@@ -128,6 +127,25 @@
      					$scope.address_added = ""
      				});
    				}
+   				$scope.delete_group = function(group){
+				$scope.selected = null
+				$http.get('http://127.0.0.1:8080/delete_group?group='+$scope.groups.select)
+					.success(function(response) {});
+				$http.get('http://127.0.0.1:8080/all_group')
+					.success(function(response) {
+						var groups = [];
+						for (i = 0; i < response.length;i++){
+							var item = {
+							    "name": response[i]
+							 };
+							groups.push(item);
+						}
+						$scope.groups = {
+						    select: null,
+						    current_groups : groups,
+						 };
+					});
+				}
 			}
 			])
 }());

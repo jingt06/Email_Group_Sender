@@ -121,6 +121,7 @@
 				    <select name="eGroups" id="Email_Groups" ng-model="groups.select" ng-change="get_addresses()">
 				      <option ng-repeat="option in groups.current_groups" value="{{option.name}}">{{option.name}}</option>
 				    </select>
+				    <button ng-show="selected" ng-click="delete_group(groups.select)">delete group</button>
 		 		 </form>
 				 <table class="table table-hover">
 				  <tr ng-repeat="address in addresses">
