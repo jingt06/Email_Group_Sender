@@ -133,6 +133,16 @@ def test():
 	conn = psycopg2.connect(conn_string)
 	return("Connected")
 
+@app.route("/create_group",methods=['GET','POST'])
+def delete_group():
+	group = request.args.get("group")
+	conn_string = "host='localhost' dbname='email_group_sender' user='postgres' password='12345678'"
+	conn = psycopg2.connect(conn_string)
+	cursor = conn.cursor()
+	cursor.execute("")
+	conn.commit()
+	return("")
+
 
 
 
